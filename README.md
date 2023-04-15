@@ -2,11 +2,12 @@
 
 ## Setup
 
-First, obtain a license file by running the `wolframresearch/wolframengine` image and saving the `$PasswordFile`.
+First, obtain a license file by running `scripts/activate.sh`.
 
 ```text
-$ touch ./Licensing/mathpass
-$ docker run -it --rm -v $(pwd)/Licensing/mathpass:/home/wolframengine/mathpass -u root wolframresearch/wolframengine
+$ ./scripts/activate.sh
+Please enter "Quit" after logging in using your Wolfram ID and password.
+
 The Wolfram Engine requires one-time activation on this computer.
 
 Visit https://wolfram.com/engine/free-license to get your free license.
@@ -17,22 +18,13 @@ Wolfram Engine activated. See https://www.wolfram.com/wolframscript/ for more in
 Wolfram Language 13.2.0 Engine for Linux x86 (64-bit)
 Copyright 1988-2022 Wolfram Research, Inc.
 
-In[1]:= WriteString["/home/wolframengine/mathpass", ReadString[$PasswordFile]]
-
-In[2]:= Quit
+In[1]:= Quit
 ```
 
-<!--
-(* Example content *)
-In[1]:= $PasswordFile // FilePrint
-%(*userregistered*)
-e45e1217a722  6541-70901-89182  5016-3522-T56G67  9305-232-887:2,0,8,8:80001:20230512
--->
-
-Then, build the Docker image.
+Then, build the Docker image by running `scripts/build.sh`.
 
 ```text
-$ docker build -t wolfram-jupyter --build-arg uname=$(id -un) --build-arg uid=$(id -u) --build-arg gname=$(id -gn) --build-arg gid=$(id -g) .
+$ ./scripts/build.sh
 [+] Building 32.9s (21/21) FINISHED
  => [internal] load build definition from Dockerfile                            0.0s
  => => transferring dockerfile: 1.66kB                                          0.0s
@@ -44,10 +36,10 @@ $ docker build -t wolfram-jupyter --build-arg uname=$(id -un) --build-arg uid=$(
 
 ## Running
 
-After you're done building, choose a directory you want to work on your notebooks in and you're ready to go. Remember to use the correct path to the `mathpass` file from the setup steps (`/path/to/this/repo/Licensing/mathpass`) in the run command below.
+Choose a directory you want to work on your notebooks in and supply the path as an argument to `scripts/run.sh` (this script is generated during the build step).
 
 ```text
-$ docker run -it --rm -v <PATH_TO_YOUR_MATHPASS_FILE>:/usr/share/WolframEngine/Licensing/mathpass -p 8888:8888 -v <PATH_TO_NOTEBOOK_WORKING_DIRECTORY>:/mnt/jupyter wolfram-jupyter
+$ ./scripts/run.sh ~/wolfram-jupyter-notebooks
 [I 15:57:53.959 NotebookApp] Writing notebook server cookie secret to /home/you/.local/share/jupyter/runtime/notebook_cookie_secret
 [I 15:57:54.108 NotebookApp] Serving notebooks from local directory: /mnt/jupyter
 [I 15:57:54.108 NotebookApp] Jupyter Notebook 6.4.10 is running at:
