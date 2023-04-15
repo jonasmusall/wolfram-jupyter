@@ -14,7 +14,7 @@ RUN groupadd -g $gid $gname && useradd -m -g $gid -u $uid $uname
 
 # Install jupyter and notebook interface.
 # TODO: upgrade to jupyterlab
-RUN pip3 install jupyter notebook
+RUN pip3 install jupyterlab
 
 # https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#docker-cmd
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents kernel crashes.
@@ -42,4 +42,4 @@ USER $uname
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 EXPOSE 8888
-CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--notebook-dir='/mnt/jupyter'"]
+CMD ["jupyter", "lab", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--notebook-dir='/mnt/jupyter'"]
