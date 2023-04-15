@@ -22,16 +22,14 @@ ENV TINI_VERSION v0.6.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
 RUN chmod +x /usr/bin/tini
 
-# Install git to clone WolframResearch/WolframLanguageForJupyter.
-# TODO: download without using git
-RUN apt-get update && apt-get install -y git
-
 # Install WolframResearch/WolframLanguageForJupyter.
 COPY ./Licensing/mathpass /usr/share/WolframEngine/Licensing/mathpass
-RUN git clone https://github.com/WolframResearch/WolframLanguageForJupyter.git /opt/WolframLanguageForJupyter
+WORKDIR /opt
+RUN wget -q -O - https://github.com/WolframResearch/WolframLanguageForJupyter/archive/refs/tags/v0.9.3.tar.gz | tar -xz
 # Use modified configure-jupyter script to globally install Kernel.
-COPY ./configure-jupyter.wls /opt/WolframLanguageForJupyter/configure-jupyter.wls
-RUN /opt/WolframLanguageForJupyter/configure-jupyter.wls add
+COPY ./configure-jupyter.wls /opt/WolframLanguageForJupyter-0.9.3/configure-jupyter.wls
+RUN /opt/WolframLanguageForJupyter-0.9.3/configure-jupyter.wls add
+WORKDIR /
 # Remove mathpass again. Mount as volume when running image instead.
 RUN rm /usr/share/WolframEngine/Licensing/mathpass
 
