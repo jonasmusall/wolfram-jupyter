@@ -4,6 +4,8 @@
 
 First, obtain a license file by running `scripts/activate.sh`.
 
+> 💡 If you already got a `mathpass` file, you can just copy it to the `Licensing` subfolder. However, `mathpass` files from a direct installation of `wolframscript` (not in a Docker container) will not work.
+
 ```text
 $ ./scripts/activate.sh
 Please enter "Quit" after logging in using your Wolfram ID and password.
