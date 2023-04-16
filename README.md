@@ -1,5 +1,7 @@
 # wolfram-jupyter
 
+Wolfram offers a free development license for the Wolfram Engine. With this project, you can use it to explore the combination of the Wolfram Language and Jupyter notebooks.
+
 ## Setup
 
 First, obtain a license file by running `scripts/activate.sh`.
