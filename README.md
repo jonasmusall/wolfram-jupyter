@@ -62,3 +62,13 @@ $ ./scripts/run.sh ~/wolfram-jupyter-notebooks
 Note that the file URL and the first web URL output by Jupyter will not work, because they are internal to the Docker container.
 
 > 💡 The `mathpass` file has to be mounted and can not be permanently integrated into the Docker image during the build step, because it has an expiration date and the Wolfram Engine will automatically renew it when it is close to expiring.
+
+## Development
+
+Use the activation script as described above to obtain a license file. After that, you can start to change stuff and if you want to, use the build script to generate a run script to test your changes. Or manually build an image (see the build script file for a reference build command).
+
+### Planned features
+
+(1) Mount folders that store Jupyter settings to make them persistent. Need to find out which folders.
+
+(2) Automatically open the correct URL in a browser to access Jupyter as running outside of Docker would do.
