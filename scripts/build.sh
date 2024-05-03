@@ -13,6 +13,6 @@ if [ ! -d "\$1" ]; then
   echo "\$1 is not a directory" >&2
   return 2
 fi
-docker run -it --rm -v $(pwd)/Licensing/mathpass:/usr/share/WolframEngine/Licensing/mathpass -p 8888:8888 -v \$1:/mnt/jupyter wolfram-jupyter
+docker run -it --rm -v $(pwd)/Licensing/mathpass:/home/$(id -un)/.WolframEngine/Licensing/mathpass -p 8888:8888 -v \$1:/mnt/jupyter wolfram-jupyter
 EOF
 chmod +x $(pwd)/scripts/run.sh

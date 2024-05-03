@@ -27,7 +27,7 @@ RUN chmod +x /usr/bin/tini
 
 # Install WolframResearch/WolframLanguageForJupyter.
 ENV WLFJ_VERSION 0.9.3
-COPY ./Licensing/mathpass /usr/share/WolframEngine/Licensing/mathpass
+COPY ./Licensing/mathpass /root/.WolframEngine/Licensing/mathpass
 WORKDIR /opt
 RUN wget -q -O - https://github.com/WolframResearch/WolframLanguageForJupyter/archive/refs/tags/v${WLFJ_VERSION}.tar.gz | tar -xz
 # Use modified configure-jupyter script to globally install Kernel.
@@ -35,7 +35,7 @@ COPY ./configure-jupyter.wls /opt/WolframLanguageForJupyter-${WLFJ_VERSION}/conf
 RUN /opt/WolframLanguageForJupyter-${WLFJ_VERSION}/configure-jupyter.wls add
 WORKDIR /
 # Remove mathpass again. Mount as volume when running image instead.
-RUN rm /usr/share/WolframEngine/Licensing/mathpass
+RUN rm /root/.WolframEngine/Licensing/mathpass
 
 #USER wolframengine
 # Create jupyter notebook directory.
